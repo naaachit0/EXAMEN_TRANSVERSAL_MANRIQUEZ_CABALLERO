@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>catalogo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  {% load static %}
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="% static 'css/estilos.css' %" rel="stylesheet">
+<style>
+  body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+  .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+  .fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+  <!-- Navbar -->
+
+  <div class="w3-top">
+    {% load static %}
+    <div class="w3-bar w3-blue w3-card w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">Principal</a>
+      <a href="{% url 'catalogo' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">Catalogo</a>
+      <a href="{% url 'quienesSomos' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">¿Quienes somos?</a>
+      <a href="{% url 'formulario' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">Registrate!</a>
+      <a href="{% url 'contacto' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">Contactanos!</a>
+      <a href="{% url 'minijuegogatos' %}" target="_blank" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">¿Te gustan los gatos?</a>
+      {% if perms.core.add_producto %}
+        <a href="{% url 'agregar_producto' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">AGREGAR PRODUCTO</a>
+      {% endif %}  
+      {% if perms.core.view_producto %}
+        <a href="{% url 'listar_productos' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">LISTA DE PRODUCTOS</a>
+      {% endif %}
+      {% if perms.core.add_cliente %}
+        <a href="{% url 'agregar_cliente' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">AGREGAR CLIENTES</a>
+      {% endif %}
+      {% if perms.core.view_cliente %}
+        <a href="{% url 'listar_cliente' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">LISTA DE CLIENTE</a>
+      {% endif %}
+      {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">CERRAR SESION</a>
+        <a href="{% url 'registro' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">REGISTRO</a>
+      {% else %}
+      <a href="{% url 'login' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">INICIAR SESION</a>
+      {% endif %}
+      
+    </div>
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">Principal</a>
+    <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">Principal</a>
+    <a href="{% url 'catalogo' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">Catalogo</a>
+    <a href="{% url 'quienesSomos' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">¿Quienes somos?</a>
+    <a href="{% url 'formulario' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">Registrate!</a>
+    <a href="{% url 'contacto' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">Contactanos!</a>
+    <a href="{% url 'minijuegogatos' %}" target="_blank" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">¿Te gustan los gatos?</a>
+    {% if perms.core.add_producto %}
+      <a href="{% url 'agregar_producto' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">AGREGAR PRODUCTO</a>
+    {% endif %}  
+    {% if perms.core.view_producto %}
+      <a href="{% url 'listar_productos' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">LISTA DE PRODUCTOS</a>
+    {% endif %}
+    {% if perms.core.add_cliente %}
+      <a href="{% url 'agregar_cliente' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">AGREGAR CLIENTES</a>
+    {% endif %}
+    {% if perms.core.view_cliente %}
+      <a href="{% url 'listar_cliente' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">LISTA DE CLIENTE</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+      <a href="{% url 'logout' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">CERRAR SESION</a>
+    {% else %}
+    <a href="{% url 'login' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">INICIAR SESION</a>
+    <a href="{% url 'registro' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-blue-gray">REGISTRO</a>
+    {% endif %}
+  </div>
+</div>
+  <div class="container">   
+    <div class="row">       
+      <div class="col-md">        
+          <div class="card">
+            <img class="card-img-top" src="{% static 'img/peines.jpg.jpeg' %}">            
+            <div class="card-body">
+              <h4 class="card-title">Rasqueta.</h4>
+              <p class="card-text">Las Rasquetas son ideales para el cepillado de tu mascota, peinar y cuidar el pelo de todo tipo de razas. Lo que más caracteriza a este producto son las púas redondeadas y suaves que consiguen un tacto muy delicado en la piel del animal. </p>
+              <a href="#" class="btn btn-primary">COMPRAR</a>
+            </div>
+          </div>          
+      </div>
+
+      <div class="col-md">        
+        <div class="card">
+          <img class="card-img-top" src="{% static 'img/peines2.jpeg' %}">            
+          <div class="card-body">
+            <h4 class="card-title">Peineta.</h4>
+            <p class="card-text">Sus dientes giratorios de acero inoxidable desenredan la mayoría de los nudos sin dolor y mantienen a tu perro limpio y feliz. </p>
+            <a href="#" class="btn btn-primary">COMPRAR</a>
+          </div>
+        </div>          
+    </div>
+
+      <!--otra fila-->
+      <br><br>
+      <hr>
+
+      <div class="row">       
+        <div class="col-md">        
+            <div class="card">
+              <img class="card-img-top" src="{% static 'img/tijeras.jpeg' %}">            
+              <div class="card-body">
+                <h4 class="card-title">Tijeras.</h4>
+                <p class="card-text">El elemento escencial de tu Perruqueria. Diseñadas para cortar el pelo de tu mascota. </p>
+                <a href="#" class="btn btn-primary">COMPRAR</a>
+              </div>
+            </div>          
+        </div>
+  
+        <div class="col-md">        
+            <div class="card">
+              <img class="card-img-top" src="{% static 'img/turbina.jpeg'%}">            
+              <div class="card-body">
+                <h4 class="card-title">Turbina de aire.</h4>
+                <p class="card-text">Más potente que un secador común y corriente, la turbina de aire hará que tu mascota esté seca en un par de minutos despues de su baño.</p>
+                <a href="#" class="btn btn-primary">COMPRAR</a>
+              </div>
+            </div>          
+        </div>
+
+
+      <!--otra fila-->
+      <br><br>
+      <hr>
+
+      <div class="row">       
+        <div class="col-md">        
+            <div class="card">
+              <img class="card-img-top" src="{% static 'img/maquina.jpeg'%}">            
+              <div class="card-body">
+                <h4 class="card-title">Maquina de corte.</h4>
+                <p class="card-text">Diseñada para trabajar en los plantares, despejar zona genital, abdomen, hocico. </p>
+                <a href="#" class="btn btn-primary">COMPRAR</a>
+              </div>
+            </div>          
+        </div>
+  
+        <div class="col-md">        
+            <div class="card">
+              <img class="card-img-top" src="{% static 'img/cortauñas.jpeg'%}">            
+              <div class="card-body">
+                <h4 class="card-title">CortaUñas.</h4>
+                <p class="card-text">Cortaúñas especial para solucionar problemas como uñas largas en nuestras mascotas y que hacen el jugar con ellas, un riesgo para la integridad de nuestras manos, brazos y piernas. </p>
+                <a href="#" class="btn btn-primary">COMPRAR</a>
+              </div>
+            </div>          
+        </div>
+    </div>
+  </div>
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">  
+    <div class="w3-xlarge w3-padding-32">
+      <i class="fa fa-facebook-official w3-hover-opacity"></i>
+      <i class="fa fa-instagram w3-hover-opacity"></i>
+      <p>&copy; ArchieBobbie - 2022</p>
+      <script>
+        // Used to toggle the menu on small screens when clicking on the menu button
+        function myFunction() {
+          var x = document.getElementById("navDemo");
+          if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+          } else { 
+            x.className = x.className.replace(" w3-show", "");
+          }
+        }
+        </script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  
+
+  
+
+
+
+
+
+
+
+
+
+</body>

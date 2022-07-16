@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formulario</title>
+    {% load static%}
+  
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+  <link href="% static 'css/estilos.css' %" rel="stylesheet">
+</head>
+<style>
+    :root {
+    --colorTextos: #49454567;
+}
+
+*,
+::before,
+::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+
+}
+
+body {
+    font-family: 'Arial';
+    background: #4568DC;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #B06AB3, #4568DC);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #B06AB3, #4568DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+height: 650px;
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+
+h1 {
+    text-align: center;
+    font-weight: 700;
+
+}
+
+form{
+    background: #fff;
+    padding: 40px 0;
+    box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+
+
+}
+
+.form{
+    width: 100%;
+    margin: auto;
+
+
+
+}
+
+form .grupo{
+
+    position: relative;
+    margin: 45px;
+}
+
+input{
+    background: none;
+    color: #c6c6c6;
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid var(--colorTextos);
+}
+
+input:focus{
+    outline: none;
+    color: rgb(94, 93, 93);
+
+
+}
+
+label{
+    color: var(--colorTextos);
+    position: absolute;
+    left: 5px;
+    top: 10px;
+    transition: 0.5s ease-in-out all;
+    pointer-events: none;
+
+}
+
+input:focus~label,
+input:valid~label{
+    top: -14px;
+    font-size: 12px;
+    color: #2196f3;
+}
+
+.barra{
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.barra::before{
+    content: "";
+    height: 2px;
+    width: 0%;
+    bottom: 0;
+    position: absolute;
+    background: linear-gradient(to right, #B06AB3, #4568DC);
+    transition: 0.3s ease width;
+    left: 0;
+}
+
+
+
+input:focus~.barra::before{
+    width: 100%;
+}
+
+button{
+    font-family: 'Arial';
+    background: #4568DC;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #B06AB3, #4568DC);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #B06AB3, #4568DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border: none;
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    color: #fff;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+@media screen and (max-width:500px){
+    form{
+        width: 80%;
+    }
+}
+</style>
+<script>
+
+    $(function() 
+    {
+      $("#form").validate({
+           rules: {
+                  email: {
+                      required: true,
+                      email: true
+                  },
+                  password: "required",
+                  nombre: "required",
+                  password2: {
+                      required: true,
+                      equalTo: "#password"
+                  }   
+                  
+              }, //rules
+          messages: {
+              email: {
+                  required: 'Ingresa tu correo electrónico',
+                  email: 'Formato de correo no válido'
+              },
+              password: {
+                  required: 'Ingresa una contraseña',
+                  minlength: 'Caracteres insuficientes'
+              },
+              nombre:{
+                  required: 'Ingrese su nombre',
+                  minlength: 'Cantidad de digitos insuficiente'
+              },
+              password2: {
+                  required: 'Reingresa la contraseña',
+                  equalTo: 'Las contraseñas ingresadas no coinciden',
+                  minlength: 'Caracteres insuficientes'
+              }
+          }//messages
+      }); //$('#mi-formulario').validate
+  }); //function
+
+
+</script>
+<body>
+
+    <form action="index.html" method="POST" id="form">
+        <div class="form">
+            <h1>Registro</h1>
+            <div class="grupo">
+                <input type="text" name="nombre" id="nombre" required minlength="8"><span class="barra"></span>
+                <label for="nombre">Nombre</label>
+
+            </div>
+            <div class="grupo">
+                <input type="email" name="email" id="email" required><span class="barra"></span>
+                <label for="email">Email</label>
+
+            </div>
+            <div class="grupo">
+                <input type="password" name="password" id="password" required minlength="8"><span class="barra"></span>
+                <label for="password">Contraseña</label>
+
+            </div>
+            <div class="grupo">
+                <input type="password" name="password2" id="password" required minlength="8"><span class="barra"></span>
+                <label for="password">Reingresa Contraseña</label>
+
+            </div>
+            <button type="submit">Registrar</button>
+        </div>
+    </form>
+</body>
+</html>
